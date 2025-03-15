@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { mappingWilayah } from '@/utils/reader';
 
-export const dynamic = "force-dynamic"; // Updated to handle dynamic rendering instead of static generation
-
 export async function GET(req: NextRequest) {
     try {
         const fullMapping = mappingWilayah();
@@ -14,21 +12,15 @@ export async function GET(req: NextRequest) {
 
         let result = Object.entries(fullMapping.provinsi).map(([id, nama]) => {
             const idProvinsi = String(id).padStart(2, '0');
-            const jumlah_kabupaten = fullMapping.kabupaten?.[Number(id)]
-                ? Object.keys(fullMapping.kabupaten[Number(id)]).length
-                : 0;
+            const jumlah_kabupaten = fullMapping.kabupaten?.[Number(id)] ? Object.keys(fullMapping.kabupaten[Number(id)]).length : 0;
 
             return {
-                id_provinsi: idProvinsi,
-                nama,
-                jumlah_kabupaten,
+                id_provinsi: idProvinsi, nama, jumlah_kabupaten,
             };
         });
 
         if (search) {
-            result = result.filter(provinsi =>
-                provinsi.nama.toLowerCase().includes(search.toLowerCase())
-            );
+            result = result.filter(provinsi => provinsi.nama.toLowerCase().includes(search.toLowerCase()));
         }
 
         if (result.length === 0) {

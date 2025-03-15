@@ -2,11 +2,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { mappingWilayah } from '@/utils/reader';
 
-export const dynamic = "force-dynamic"; // Updated to handle dynamic rendering instead of static generation
-
 export async function GET(req: NextRequest, context: { params: any }) {
     try {
-        const { id_provinsi } = context.params as { id_provinsi: string };
+        const { id_provinsi } = await context.params as { id_provinsi: string };
 
         if (!id_provinsi) {
             return NextResponse.json({ message: 'ID Provinsi Tidak Valid!' }, { status: 400 });
@@ -23,9 +21,7 @@ export async function GET(req: NextRequest, context: { params: any }) {
             const idProvinsi = String(id_provinsi).padStart(2, '0');
             const id = String(idKabupaten).padStart(2, '0');
 
-            const jumlah_kecamatan = fullMapping.kecamatan?.[Number(id_provinsi)]?.[Number(idKabupaten)]
-                ? Object.keys(fullMapping.kecamatan[Number(id_provinsi)][Number(idKabupaten)]).length
-                : 0;
+            const jumlah_kecamatan = fullMapping.kecamatan?.[Number(id_provinsi)]?.[Number(idKabupaten)] ? Object.keys(fullMapping.kecamatan[Number(id_provinsi)][Number(idKabupaten)]).length : 0;
 
             return {
                 id_provinsi: idProvinsi,
@@ -39,9 +35,7 @@ export async function GET(req: NextRequest, context: { params: any }) {
 
         const search = req.nextUrl.searchParams.get('search');
         if (search) {
-            result = result.filter(kabupaten =>
-                kabupaten.nama.toLowerCase().includes(search.toLowerCase())
-            );
+            result = result.filter(kabupaten => kabupaten.nama.toLowerCase().includes(search.toLowerCase()));
         }
 
         if (result.length === 0) {

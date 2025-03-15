@@ -3,11 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { mappingWilayah, readCSV } from '@/utils/reader';
 import { Kelurahan } from '@/tipe/Wilayah';
 
-export const dynamic = "force-dynamic"; // Updated to handle dynamic rendering instead of static generation
-
 export async function GET(req: NextRequest, context: { params: any }) {
     try {
-        const { id_provinsi, id_kabupaten, id_kecamatan } = context.params as { id_provinsi: string; id_kabupaten: string; id_kecamatan: string };
+        const { id_provinsi, id_kabupaten, id_kecamatan } = await context.params as { id_provinsi: string; id_kabupaten: string; id_kecamatan: string };
 
         if (!id_provinsi || !id_kabupaten || !id_kecamatan) {
             return NextResponse.json({ message: 'ID Tidak Valid!' }, { status: 400 });
@@ -46,9 +44,7 @@ export async function GET(req: NextRequest, context: { params: any }) {
 
         const search = req.nextUrl.searchParams.get('search');
         if (search) {
-            result = result.filter(kelurahan =>
-                kelurahan.nama.toLowerCase().includes(search.toLowerCase())
-            );
+            result = result.filter(kelurahan => kelurahan.nama.toLowerCase().includes(search.toLowerCase()));
         }
 
         if (result.length === 0) {
