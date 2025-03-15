@@ -14,63 +14,64 @@ export function readCSV<T extends CSVRow>(fileName: string): T[] {
     });
 
     return data.map((row) => {
-        const obj: CSVRow = {};
+        const objects: CSVRow = {};
 
         Object.entries(row).forEach(([key, value]) => {
             const formattedKey = key.trim().toLowerCase();
 
             if (formattedKey.includes('id')) {
-                obj[formattedKey] = Number(value.trim()) || null;
+                objects[formattedKey] = Number(value.trim()) || null;
             } else {
-                obj[formattedKey] = value.trim();
+                objects[formattedKey] = value.trim();
             }
         });
 
-        return obj as T;
+        return objects as T;
     });
 }
 
-export function mappingProvinsi(): Record<number, string> {
-    const data = readCSV<{ id: number; nama: string }>('provinsi.csv');
-    const mapping: Record<number, string> = {};
-
-    data.forEach((region) => {
-        mapping[region.id] = 'Provinsi ' + region.nama;
-    });
-
-    return mapping;
+interface FullMapping {
+    provinsi: Record<number, string>;
+    kabupaten: Record<number, Record<number, string>>;
+    kecamatan: Record<number, Record<number, Record<number, string>>>;
 }
 
-export function mappingKabupaten(): Record<number, Record<number, string>> {
-    const data = readCSV<{ id: number; id_provinsi: number; nama: string; tipe: string }>('kabupaten.csv');
-    const mapping: Record<number, Record<number, string>> = {};
+export function createFullMapping(): FullMapping {
+    const provinsiData = readCSV<{ id: number; nama: string }>('provinsi.csv');
+    const kabupatenData = readCSV<{ id: number; id_provinsi: number; nama: string; tipe: string }>('kabupaten.csv');
+    const kecamatanData = readCSV<{ id: number; id_provinsi: number; id_kabupaten: number; nama: string }>('kecamatan.csv');
 
-    data.forEach((region) => {
-        if (!mapping[region.id_provinsi]) {
-            mapping[region.id_provinsi] = {};
-        }
+    const provinsiMapping: Record<number, string> = {};
+    const kabupatenMapping: Record<number, Record<number, string>> = {};
+    const kecamatanMapping: Record<number, Record<number, Record<number, string>>> = {};
 
-        mapping[region.id_provinsi][region.id] = region.tipe + ' ' + region.nama;
+    provinsiData.forEach((region) => {
+        provinsiMapping[region.id] = 'Provinsi ' + region.nama;
     });
 
-    return mapping;
-}
-
-export function mappingKecamatan(): Record<number, Record<number, Record<number, string>>> {
-    const data = readCSV<{ id: number; id_provinsi: number; id_kabupaten: number; nama: string }>('kecamatan.csv');
-    const mapping: Record<number, Record<number, Record<number, string>>> = {};
-
-    data.forEach((region) => {
-        if (!mapping[region.id_provinsi]) {
-            mapping[region.id_provinsi] = {};
+    kabupatenData.forEach((region) => {
+        if (!kabupatenMapping[region.id_provinsi]) {
+            kabupatenMapping[region.id_provinsi] = {};
         }
 
-        if (!mapping[region.id_provinsi][region.id_kabupaten]) {
-            mapping[region.id_provinsi][region.id_kabupaten] = {};
-        }
-
-        mapping[region.id_provinsi][region.id_kabupaten][region.id] = 'Kecamatan ' + region.nama;
+        kabupatenMapping[region.id_provinsi][region.id] = region.tipe + ' ' + region.nama;
     });
 
-    return mapping;
+    kecamatanData.forEach((region) => {
+        if (!kecamatanMapping[region.id_provinsi]) {
+            kecamatanMapping[region.id_provinsi] = {};
+        }
+
+        if (!kecamatanMapping[region.id_provinsi][region.id_kabupaten]) {
+            kecamatanMapping[region.id_provinsi][region.id_kabupaten] = {};
+        }
+
+        kecamatanMapping[region.id_provinsi][region.id_kabupaten][region.id] = 'Kecamatan ' + region.nama;
+    });
+
+    return {
+        provinsi: provinsiMapping,
+        kabupaten: kabupatenMapping,
+        kecamatan: kecamatanMapping
+    };
 }
