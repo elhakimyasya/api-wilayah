@@ -28,12 +28,15 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
         const idProvinsi = String(id_provinsi).padStart(2, '0');
         const id = String(idKabupaten).padStart(2, '0');
 
+        const jumlah_kecamatan = fullMapping.kecamatan[Number(id_provinsi)]?.[Number(idKabupaten)] ? Object.keys(fullMapping.kecamatan[Number(id_provinsi)][Number(idKabupaten)]).length : 0;
+
         return {
             id_provinsi: idProvinsi,
             id_kabupaten: id,
             kode: String(`${idProvinsi}${id}`),
             nama: namaKabupaten,
             provinsi: fullMapping.provinsi[Number(id_provinsi)] || 'Tidak Diketahui',
+            jumlah_kecamatan,
         };
     });
 

@@ -1,14 +1,23 @@
 import { mappingWilayah } from '@/utils/reader';
 import { NextRequest, NextResponse } from 'next/server';
 
+// Define the types for the mapping
+interface FullMapping {
+    provinsi: Record<number, string>;
+    kabupaten: Record<number, Record<number, string>>;
+    kecamatan: Record<number, Record<number, Record<number, string>>>;
+    kelurahan: Record<number, Record<number, Record<number, Record<number, string>>>>;
+}
+
 export async function GET(req: NextRequest) {
     const search = req.nextUrl.searchParams.get('search');
 
-    const fullMapping = mappingWilayah();
+    const fullMapping: FullMapping = mappingWilayah();
 
     let formattedProvinsi = Object.entries(fullMapping.provinsi).map(([id, nama]) => ({
-        id_provinsi: id, // Ensure id is a string
-        nama
+        id_provinsi: Number(id),
+        nama,
+        jumlah_kabupaten: Object.keys(fullMapping.kabupaten[Number(id)] || {}).length
     }));
 
     if (search) {

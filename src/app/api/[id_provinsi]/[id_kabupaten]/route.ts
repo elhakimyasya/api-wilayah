@@ -37,6 +37,8 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
         const idKabupaten = String(id_kabupaten).padStart(2, '0');
         const id = String(idKecamatan).padStart(2, '0');
 
+        const jumlah_kelurahan = fullMapping.kelurahan[id_provinsi]?.[id_kabupaten]?.[Number(idKecamatan)] ? Object.keys(fullMapping.kelurahan[id_provinsi][id_kabupaten][Number(idKecamatan)]).length : 0;
+
         return {
             id_provinsi: idProvinsi,
             id_kabupaten: idKabupaten,
@@ -45,6 +47,7 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
             nama: namaKecamatan,
             kabupaten: fullMapping.kabupaten[id_provinsi]?.[id_kabupaten] || 'Tidak Diketahui',
             provinsi: fullMapping.provinsi[id_provinsi] || 'Tidak Diketahui',
+            jumlah_kelurahan,
         };
     });
 
