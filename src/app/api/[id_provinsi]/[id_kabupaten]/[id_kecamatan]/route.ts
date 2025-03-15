@@ -2,45 +2,31 @@ import { NextRequest, NextResponse } from 'next/server';
 import { mappingWilayah, readCSV } from '@/utils/reader';
 import { Kelurahan } from '@/tipe/Wilayah';
 
-export async function GET(req: NextRequest, context: { params: { id_provinsi: number, id_kabupaten: number, id_kecamatan: number } }) {
-    const { id_provinsi, id_kabupaten, id_kecamatan } = context.params;
+export async function GET(req: NextRequest, { params }: { params: { id_provinsi: string; id_kabupaten: string; id_kecamatan: string } }) {
+    const { id_provinsi, id_kabupaten, id_kecamatan } = params;
     const search = req.nextUrl.searchParams.get('search');
 
     if (!id_provinsi) {
-        return NextResponse.json({
-            message: 'ID Provinsi Tidak Valid!'
-        }, {
-            status: 400
-        });
+        return NextResponse.json({ message: 'ID Provinsi Tidak Valid!' }, { status: 400 });
     }
 
     if (!id_kabupaten) {
-        return NextResponse.json({
-            message: 'ID Kabupaten Tidak Valid!'
-        }, {
-            status: 400
-        });
+        return NextResponse.json({ message: 'ID Kabupaten Tidak Valid!' }, { status: 400 });
     }
 
     if (!id_kecamatan) {
-        return NextResponse.json({
-            message: 'ID Kecamatan Tidak Valid!'
-        }, {
-            status: 400
-        });
+        return NextResponse.json({ message: 'ID Kecamatan Tidak Valid!' }, { status: 400 });
     }
 
     const datas = readCSV<Kelurahan>('kelurahan.csv');
     const filter = datas.filter((data) =>
-        Number(data.id_provinsi) === Number(id_provinsi) && Number(data.id_kabupaten) === Number(id_kabupaten) && Number(data.id_kecamatan) === Number(id_kecamatan)
+        Number(data.id_provinsi) === Number(id_provinsi) &&
+        Number(data.id_kabupaten) === Number(id_kabupaten) &&
+        Number(data.id_kecamatan) === Number(id_kecamatan)
     );
 
     if (filter.length === 0) {
-        return NextResponse.json({
-            message: 'Kelurahan tidak ditemukan'
-        }, {
-            status: 404
-        });
+        return NextResponse.json({ message: 'Kelurahan tidak ditemukan' }, { status: 404 });
     }
 
     const fullMapping = mappingWilayah();
@@ -58,8 +44,10 @@ export async function GET(req: NextRequest, context: { params: { id_provinsi: nu
             id_kelurahan: idKelurahan,
             kode: `${idProvinsi}${idKabupaten}${idKecamatan}${idKelurahan}`,
             nama: data.nama,
-            kecamatan: data.id_provinsi !== null && data.id_kabupaten !== null && data.id_kecamatan !== null ? (fullMapping.kecamatan[Number(data.id_provinsi)]?.[Number(data.id_kabupaten)]?.[Number(data.id_kecamatan)] || 'Tidak Diketahui') : 'Tidak Diketahui',
-            kabupaten: data.id_provinsi !== null && data.id_kabupaten !== null ? (fullMapping.kabupaten[Number(data.id_provinsi)]?.[Number(data.id_kabupaten)] || 'Tidak Diketahui') : 'Tidak Diketahui',
+            kecamatan: data.id_provinsi !== null && data.id_kabupaten !== null && data.id_kecamatan !== null ?
+                (fullMapping.kecamatan[Number(data.id_provinsi)]?.[Number(data.id_kabupaten)]?.[Number(data.id_kecamatan)] || 'Tidak Diketahui') : 'Tidak Diketahui',
+            kabupaten: data.id_provinsi !== null && data.id_kabupaten !== null ?
+                (fullMapping.kabupaten[Number(data.id_provinsi)]?.[Number(data.id_kabupaten)] || 'Tidak Diketahui') : 'Tidak Diketahui',
             provinsi: data.id_provinsi !== null ? fullMapping.provinsi[Number(data.id_provinsi)] || 'Tidak Diketahui' : 'Tidak Diketahui',
         };
     });
@@ -71,14 +59,8 @@ export async function GET(req: NextRequest, context: { params: { id_provinsi: nu
     }
 
     if (result.length === 0) {
-        return NextResponse.json({
-            message: 'Hasil Tidak Ditemukan.'
-        }, {
-            status: 200
-        });
+        return NextResponse.json({ message: 'Hasil Tidak Ditemukan.' }, { status: 200 });
     }
 
-    return NextResponse.json(result, {
-        status: 200
-    });
+    return NextResponse.json(result, { status: 200 });
 }
