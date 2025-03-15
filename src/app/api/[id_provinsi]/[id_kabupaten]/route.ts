@@ -2,6 +2,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { mappingWilayah } from '@/utils/reader';
 
+export const dynamic = "force-static"; // Added to fix the build error
+export const revalidate = 60; // Adjust the revalidation time as needed
+
 export async function GET(req: NextRequest, context: { params: any }) {
     try {
         const { id_provinsi, id_kabupaten } = context.params as { id_provinsi: string; id_kabupaten: string };
