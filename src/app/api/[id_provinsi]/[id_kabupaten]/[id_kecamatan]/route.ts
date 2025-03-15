@@ -4,10 +4,11 @@ import { Kelurahan } from '@/tipe/Wilayah';
 
 export async function GET(req: NextRequest, { params }: { params: { id_provinsi: number, id_kabupaten: number, id_kecamatan: number } }) {
     const { id_provinsi, id_kabupaten, id_kecamatan } = params;
+    const search = req.nextUrl.searchParams.get('search');
 
     if (!id_provinsi) {
         return NextResponse.json({
-            error: 'ID Provinsi Tidak Valid!'
+            message: 'ID Provinsi Tidak Valid!'
         }, {
             status: 400
         });
@@ -15,7 +16,7 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
 
     if (!id_kabupaten) {
         return NextResponse.json({
-            error: 'ID Kabupaten Tidak Valid!'
+            message: 'ID Kabupaten Tidak Valid!'
         }, {
             status: 400
         });
@@ -23,7 +24,7 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
 
     if (!id_kecamatan) {
         return NextResponse.json({
-            error: 'ID Kecamatan Tidak Valid!'
+            message: 'ID Kecamatan Tidak Valid!'
         }, {
             status: 400
         });
@@ -36,7 +37,7 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
 
     if (filter.length === 0) {
         return NextResponse.json({
-            error: 'Kelurahan tidak ditemukan'
+            message: 'Kelurahan tidak ditemukan'
         }, {
             status: 404
         });
@@ -44,7 +45,7 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
 
     const fullMapping = mappingWilayah();
 
-    const result = filter.map((data) => {
+    let result = filter.map((data) => {
         const idProvinsi = String(data.id_provinsi).padStart(2, '0');
         const idKabupaten = String(data.id_kabupaten).padStart(2, '0');
         const idKecamatan = String(data.id_kecamatan).padStart(3, '0');
@@ -62,6 +63,20 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
             provinsi: data.id_provinsi !== null ? fullMapping.provinsi[Number(data.id_provinsi)] || 'Tidak Diketahui' : 'Tidak Diketahui',
         };
     });
+
+    if (search) {
+        result = result.filter(kelurahan =>
+            kelurahan.nama.toLowerCase().includes(search.toLowerCase())
+        );
+    }
+
+    if (result.length === 0) {
+        return NextResponse.json({
+            message: 'Hasil Tidak Ditemukan.'
+        }, {
+            status: 200
+        });
+    }
 
     return NextResponse.json(result, {
         status: 200

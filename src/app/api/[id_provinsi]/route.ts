@@ -3,10 +3,11 @@ import { mappingWilayah } from '@/utils/reader';
 
 export async function GET(req: NextRequest, { params }: { params: { id_provinsi: string } }) {
     const { id_provinsi } = params;
+    const search = req.nextUrl.searchParams.get('search');
 
     if (!id_provinsi) {
         return NextResponse.json({
-            error: 'ID Provinsi Tidak Valid!'
+            message: 'ID Provinsi Tidak Valid!'
         }, {
             status: 400
         });
@@ -17,13 +18,13 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
 
     if (!filter || Object.keys(filter).length === 0) {
         return NextResponse.json({
-            error: 'Kabupaten/Kota tidak ditemukan!'
+            message: 'Kabupaten/Kota tidak ditemukan!'
         }, {
             status: 404
         });
     }
 
-    const result = Object.entries(filter).map(([idKabupaten, namaKabupaten]) => {
+    let result = Object.entries(filter).map(([idKabupaten, namaKabupaten]) => {
         const idProvinsi = String(id_provinsi).padStart(2, '0');
         const id = String(idKabupaten).padStart(2, '0');
 
@@ -35,6 +36,20 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
             provinsi: fullMapping.provinsi[Number(id_provinsi)] || 'Tidak Diketahui',
         };
     });
+
+    if (search) {
+        result = result.filter(kabupaten =>
+            kabupaten.nama.toLowerCase().includes(search.toLowerCase())
+        );
+    }
+
+    if (result.length === 0) {
+        return NextResponse.json({
+            message: 'Hasil Tidak Ditemukan.'
+        }, {
+            status: 200
+        });
+    }
 
     return NextResponse.json(result, {
         status: 200
