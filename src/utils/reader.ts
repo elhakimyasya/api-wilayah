@@ -31,12 +31,27 @@ export function readCSV<T extends CSVRow>(fileName: string): T[] {
 }
 
 export function mappingProvinsi(): Record<number, string> {
-    const provinsiData = readCSV<{ id: number; nama: string }>('provinsi.csv');
-    const provinsiMapping: Record<number, string> = {};
+    const data = readCSV<{ id: number; nama: string }>('provinsi.csv');
+    const mapping: Record<number, string> = {};
 
-    provinsiData.forEach((provinsi) => {
-        provinsiMapping[provinsi.id] = provinsi.nama;
+    data.forEach((region) => {
+        mapping[region.id] = region.nama;
     });
 
-    return provinsiMapping;
+    return mapping;
+}
+
+export function mappingKabupaten(): Record<number, Record<number, string>> {
+    const data = readCSV<{ id: number; id_provinsi: number; nama: string }>('kabupaten.csv');
+    const mapping: Record<number, Record<number, string>> = {};
+
+    data.forEach((region) => {
+        if (!mapping[region.id_provinsi]) {
+            mapping[region.id_provinsi] = {};
+        }
+        mapping[region.id_provinsi][region.id] = region.nama;
+    });
+
+    console.log(mapping)
+    return mapping;
 }
