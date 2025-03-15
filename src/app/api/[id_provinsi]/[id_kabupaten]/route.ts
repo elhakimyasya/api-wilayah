@@ -35,12 +35,12 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
     let result = Object.entries(kecamatanMapping).map(([idKecamatan, namaKecamatan]) => {
         const idProvinsi = String(id_provinsi).padStart(2, '0');
         const idKabupaten = String(id_kabupaten).padStart(2, '0');
-        const id = String(idKecamatan).padStart(3, '0');
+        const id = String(idKecamatan).padStart(2, '0');
 
         return {
-            id_provinsi: String(id_provinsi),
-            id_kabupaten: String(id_kabupaten),
-            id_kecamatan: String(idKecamatan),
+            id_provinsi: idProvinsi,
+            id_kabupaten: idKabupaten,
+            id_kecamatan: id,
             kode: String(`${idProvinsi}${idKabupaten}${id}`),
             nama: namaKecamatan,
             kabupaten: fullMapping.kabupaten[id_provinsi]?.[id_kabupaten] || 'Tidak Diketahui',

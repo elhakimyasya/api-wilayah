@@ -49,7 +49,7 @@ export function mappingWilayah(): FullMapping {
     const mappingKelurahan: Record<number, Record<number, Record<number, Record<number, string>>>> = {};
 
     dataProvinsi.forEach((region) => {
-        mappingProvinsi[region.id] = 'Provinsi ' + region.nama;
+        mappingProvinsi[region.id] = region.nama;
     });
 
     dataKabupaten.forEach((region) => {
@@ -57,7 +57,7 @@ export function mappingWilayah(): FullMapping {
             mappingKabupaten[region.id_provinsi] = {};
         }
 
-        mappingKabupaten[region.id_provinsi][region.id] = region.tipe + ' ' + region.nama;
+        mappingKabupaten[region.id_provinsi][region.id] = region.nama;
     });
 
     dataKecamatan.forEach((region) => {
@@ -69,7 +69,7 @@ export function mappingWilayah(): FullMapping {
             mappingKecamatan[region.id_provinsi][region.id_kabupaten] = {};
         }
 
-        mappingKecamatan[region.id_provinsi][region.id_kabupaten][region.id] = 'Kecamatan ' + region.nama;
+        mappingKecamatan[region.id_provinsi][region.id_kabupaten][region.id] = region.nama;
     });
 
     dataKelurahan.forEach((region) => {
@@ -85,7 +85,7 @@ export function mappingWilayah(): FullMapping {
             mappingKelurahan[region.id_provinsi][region.id_kabupaten][region.id_kecamatan] = {};
         }
 
-        mappingKelurahan[region.id_provinsi][region.id_kabupaten][region.id_kecamatan][region.id] = 'Kelurahan ' + region.nama;
+        mappingKelurahan[region.id_provinsi][region.id_kabupaten][region.id_kecamatan][region.id] = region.nama;
     });
 
     return {

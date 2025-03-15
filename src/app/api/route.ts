@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { mappingWilayah } from '@/utils/reader';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
     const search = req.nextUrl.searchParams.get('search');
@@ -7,7 +7,8 @@ export async function GET(req: NextRequest) {
     const fullMapping = mappingWilayah();
 
     let formattedProvinsi = Object.entries(fullMapping.provinsi).map(([id, nama]) => ({
-        id_provinsi: String(id), nama
+        id_provinsi: id, // Ensure id is a string
+        nama
     }));
 
     if (search) {

@@ -48,7 +48,7 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
     let result = filter.map((data) => {
         const idProvinsi = String(data.id_provinsi).padStart(2, '0');
         const idKabupaten = String(data.id_kabupaten).padStart(2, '0');
-        const idKecamatan = String(data.id_kecamatan).padStart(3, '0');
+        const idKecamatan = String(data.id_kecamatan).padStart(2, '0');
         const idKelurahan = String(data.id).padStart(3, '0');
 
         return {
@@ -57,7 +57,7 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
             id_kecamatan: idKecamatan,
             id_kelurahan: idKelurahan,
             kode: `${idProvinsi}${idKabupaten}${idKecamatan}${idKelurahan}`,
-            nama: 'Kelurahan ' + data.nama,
+            nama: data.nama,
             kecamatan: data.id_provinsi !== null && data.id_kabupaten !== null && data.id_kecamatan !== null ? (fullMapping.kecamatan[Number(data.id_provinsi)]?.[Number(data.id_kabupaten)]?.[Number(data.id_kecamatan)] || 'Tidak Diketahui') : 'Tidak Diketahui',
             kabupaten: data.id_provinsi !== null && data.id_kabupaten !== null ? (fullMapping.kabupaten[Number(data.id_provinsi)]?.[Number(data.id_kabupaten)] || 'Tidak Diketahui') : 'Tidak Diketahui',
             provinsi: data.id_provinsi !== null ? fullMapping.provinsi[Number(data.id_provinsi)] || 'Tidak Diketahui' : 'Tidak Diketahui',
