@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     const fullMapping = mappingWilayah();
 
     let formattedProvinsi = Object.entries(fullMapping.provinsi).map(([id, nama]) => ({
-        id_provinsi: Number(id), nama
+        id_provinsi: String(id), nama
     }));
 
     if (search) {

@@ -52,11 +52,11 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
         const idKelurahan = String(data.id).padStart(3, '0');
 
         return {
-            id_provinsi: data.id_provinsi,
-            id_kabupaten: data.id_kabupaten,
-            id_kecamatan: data.id_kecamatan,
-            id_kelurahan: data.id,
-            kode: Number(`${idProvinsi}${idKabupaten}${idKecamatan}${idKelurahan}`),
+            id_provinsi: idProvinsi,
+            id_kabupaten: idKabupaten,
+            id_kecamatan: idKecamatan,
+            id_kelurahan: idKelurahan,
+            kode: `${idProvinsi}${idKabupaten}${idKecamatan}${idKelurahan}`,
             nama: 'Kelurahan ' + data.nama,
             kecamatan: data.id_provinsi !== null && data.id_kabupaten !== null && data.id_kecamatan !== null ? (fullMapping.kecamatan[Number(data.id_provinsi)]?.[Number(data.id_kabupaten)]?.[Number(data.id_kecamatan)] || 'Tidak Diketahui') : 'Tidak Diketahui',
             kabupaten: data.id_provinsi !== null && data.id_kabupaten !== null ? (fullMapping.kabupaten[Number(data.id_provinsi)]?.[Number(data.id_kabupaten)] || 'Tidak Diketahui') : 'Tidak Diketahui',

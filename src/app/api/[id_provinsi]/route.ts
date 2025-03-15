@@ -29,9 +29,9 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
         const id = String(idKabupaten).padStart(2, '0');
 
         return {
-            id_provinsi: Number(id_provinsi),
-            id_kabupaten: Number(idKabupaten),
-            kode: Number(`${idProvinsi}${id}`),
+            id_provinsi: idProvinsi,
+            id_kabupaten: id,
+            kode: String(`${idProvinsi}${id}`),
             nama: namaKabupaten,
             provinsi: fullMapping.provinsi[Number(id_provinsi)] || 'Tidak Diketahui',
         };

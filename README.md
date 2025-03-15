@@ -1,6 +1,6 @@
 # API Wilayah
 
-Proyek API Wilayah menyediakan API untuk mendapatkan data wilayah di Indonesia, termasuk Provinsi, Kabupaten/Kota, Kecamatan, dan Kelurahan. Anda dapat melakukan pencarian berdasarkan nama wilayah menggunakan parameter `search`.
+Proyek API Wilayah menyediakan API untuk mendapatkan data wilayah di Indonesia, termasuk Provinsi, Kabupaten/Kota, Kecamatan, dan Kelurahan. Kalian dapat melakukan pencarian berdasarkan nama wilayah menggunakan parameter `search`.
 
 ## Akses API
 
@@ -24,4 +24,4 @@ Endpoint: `GET /api/<ID_PROVINSI>/<ID_KABUPATEN>/<ID_KECAMATAN>?search=<NAMA_KEL
 
 ## Kontribusi
 
-Jika Anda ingin berkontribusi pada proyek ini, silakan fork repository ini dan buat pull request dengan perubahan yang Anda usulkan.
+Jika Kalian ingin berkontribusi pada proyek ini, silakan fork repository ini dan buat pull request dengan perubahan yang Kalian usulkan.
