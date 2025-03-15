@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { mappingWilayah, readCSV } from '@/utils/reader';
 import { Kelurahan } from '@/tipe/Wilayah';
 
-export async function GET(req: NextRequest, { params }: { params: { id_provinsi: number, id_kabupaten: number, id_kecamatan: number } }) {
-    const { id_provinsi, id_kabupaten, id_kecamatan } = params;
+export async function GET(req: NextRequest, context: { params: { id_provinsi: number, id_kabupaten: number, id_kecamatan: number } }) {
+    const { id_provinsi, id_kabupaten, id_kecamatan } = context.params;
     const search = req.nextUrl.searchParams.get('search');
 
     if (!id_provinsi) {
