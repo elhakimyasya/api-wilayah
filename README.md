@@ -1,27 +1,87 @@
-# API Wilayah
+# 🇮🇩 API Wilayah
 
-Proyek API Wilayah menyediakan API untuk mendapatkan data wilayah di Indonesia, termasuk Provinsi, Kabupaten/Kota, Kecamatan, dan Kelurahan. Kalian dapat melakukan pencarian berdasarkan nama wilayah menggunakan parameter `search`.
+Proyek API Wilayah menyediakan API buat ngambil data wilayah di Indonesia, termasuk Provinsi, Kabupaten/Kota, Kecamatan, dan Kelurahan. Kalian bisa cari data wilayah berdasarkan nama.
 
-## Akses API
+## 🚀 Akses API
 
-Berikut adalah endpoint API yang tersedia beserta cara mengaksesnya:
+Berikut ini adalah endpoint API yang tersedia dan cara ngaksesnya:
 
-### 1. Pencarian Provinsi
+### 🏞️ 1. Pencarian Provinsi
 
 Endpoint: `GET /api?search=<NAMA_PROVINSI>`
 
-### 2. Pencarian Kabupaten
+### 🏙️ 2. Pencarian Kabupaten
 
 Endpoint: `GET /api/<ID_PROVINSI>?search=<NAMA_KABUPATEN>`
 
-### 3. Pencarian Kecamatan
+### 🌆 3. Pencarian Kecamatan
 
 Endpoint: `GET /api/<ID_PROVINSI>/<ID_KABUPATEN>?search=<NAMA_KECAMATAN>`
 
-### 4. Pencarian Kelurahan
+### 🏡 4. Pencarian Kelurahan
 
 Endpoint: `GET /api/<ID_PROVINSI>/<ID_KABUPATEN>/<ID_KECAMATAN>?search=<NAMA_KELURAHAN>`
 
-## Kontribusi
+## 📖 Cara Penggunaan
 
-Jika Kalian ingin berkontribusi pada proyek ini, silakan fork repository ini dan buat pull request dengan perubahan yang Kalian usulkan.
+Buat pake API ini, kalian bisa kirim permintaan HTTP GET ke endpoint yang tersedia dengan parameter pencarian yang sesuai. Contohnya, buat nyari provinsi dengan nama "Jawa Barat":
+
+```sh
+curl -X GET "https://api.example.com/api?search=Jawa%20Barat"
+```
+
+## 📨 Contoh Respon
+
+Berikut ini contoh respon buat pencarian provinsi:
+
+```json
+[
+    {
+        "id": "1",
+        "nama": "Jawa Barat"
+    },
+    {
+        "id": "2",
+        "nama": "Jawa Tengah"
+    }
+]
+```
+
+## 🛠️ Instalasi
+
+Buat jalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
+
+1. Clone repo ini:
+    ```sh
+    git clone https://github.com/elhakimyasya/api-wilayah.git
+    ```
+2. Masuk ke direktori proyek:
+    ```sh
+    cd api-wilayah
+    ```
+3. Install dependencies:
+    ```sh
+    npm install
+    ```
+4. Jalankan server:
+    ```sh
+    npm start
+    ```
+
+## 🤝 Kontribusi
+
+Kalau kalian mau kontribusi ke proyek ini, silakan fork repo ini dan buat pull request dengan perubahan yang kalian usulkan.
+
+## 💖 Donasi
+
+Kalau kalian mau dukung proyek ini, kalian bisa donasi lewat link berikut:
+
+[Donasi di Saweria](https://saweria.co/yasyaelhakim)
+
+## 📜 Lisensi
+
+Proyek ini dilisensikan di bawah lisensi MIT. Lihat file `LICENSE` untuk informasi lebih lanjut.
+
+## 📧 Kontak
+
+Kalau kalian punya pertanyaan atau masukan, silakan buka issue atau hubungi saya lewat email di elhakimyasya@example.com.
