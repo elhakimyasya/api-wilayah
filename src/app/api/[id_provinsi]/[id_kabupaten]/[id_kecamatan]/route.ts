@@ -6,6 +6,26 @@ import { Kelurahan } from '@/tipe/Wilayah';
 export const dynamic = "force-static"; // Added to fix the build error
 export const revalidate = 60; // Adjust the revalidation time as needed
 
+// Added to specify the dynamic routes for static generation
+export async function generateStaticParams() {
+    const fullMapping = mappingWilayah();
+    const params = [];
+
+    for (const id_provinsi in fullMapping.kabupaten) {
+        for (const id_kabupaten in fullMapping.kabupaten[id_provinsi]) {
+            for (const id_kecamatan in fullMapping.kecamatan[id_provinsi][id_kabupaten]) {
+                params.push({
+                    id_provinsi,
+                    id_kabupaten,
+                    id_kecamatan
+                });
+            }
+        }
+    }
+
+    return params;
+}
+
 export async function GET(req: NextRequest, context: { params: any }) {
     try {
         const { id_provinsi, id_kabupaten, id_kecamatan } = context.params as { id_provinsi: string; id_kabupaten: string; id_kecamatan: string };
