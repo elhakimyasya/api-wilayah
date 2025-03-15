@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { mappingWilayah } from '@/utils/reader';
 
-export const dynamic = "force-static"; // Added to fix the build error
-export const revalidate = 60; // Adjust the revalidation time as needed
+export const dynamic = "force-dynamic"; // Updated to handle dynamic rendering instead of static generation
 
 export async function GET(req: NextRequest) {
     try {
