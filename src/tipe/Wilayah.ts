@@ -15,6 +15,7 @@ export interface Kabupaten {
 
 export interface Kecamatan {
     id: number | null;
+    id_provinsi: number | null;
     id_kabupaten: number | null;
     nama: string;
 
@@ -23,6 +24,8 @@ export interface Kecamatan {
 
 export interface Kelurahan {
     id: number | null;
+    id_provinsi: number | null;
+    id_kabupaten: number | null;
     id_kecamatan: number | null;
     nama: string;
 

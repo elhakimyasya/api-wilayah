@@ -45,10 +45,10 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
         return {
             id: data.id,
             id_provinsi: data.id_provinsi,
-            id_kecamatan: data.id_kecamatan,
+            id_kabupaten: data.id_kabupaten,
             kode: Number(`${idProvinsi}${idKabupaten}${idKecamatan}`),
             nama: data.nama,
-            kabupaten: data.id_kabupaten !== null && data.id_provinsi !== null ? (mapKabupaten[Number(data.id_kabupaten)]?.[Number(data.id_provisni)] || 'Tidak Diketahui') : 'Tidak Diketahui',
+            kabupaten: data.id_provinsi !== null && data.id_kabupaten !== null ? (mapKabupaten[Number(data.id_provinsi)]?.[Number(data.id_kabupaten)] || 'Tidak Diketahui') : 'Tidak Diketahui',
             provinsi: data.id_provinsi !== null ? mapProvinsi[Number(data.id_provinsi)] || 'Tidak Diketahui' : 'Tidak Diketahui',
         };
     });

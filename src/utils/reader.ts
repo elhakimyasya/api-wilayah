@@ -35,23 +35,42 @@ export function mappingProvinsi(): Record<number, string> {
     const mapping: Record<number, string> = {};
 
     data.forEach((region) => {
-        mapping[region.id] = region.nama;
+        mapping[region.id] = 'Provinsi ' + region.nama;
     });
 
     return mapping;
 }
 
 export function mappingKabupaten(): Record<number, Record<number, string>> {
-    const data = readCSV<{ id: number; id_provinsi: number; nama: string }>('kabupaten.csv');
+    const data = readCSV<{ id: number; id_provinsi: number; nama: string; tipe: string }>('kabupaten.csv');
     const mapping: Record<number, Record<number, string>> = {};
 
     data.forEach((region) => {
         if (!mapping[region.id_provinsi]) {
             mapping[region.id_provinsi] = {};
         }
-        mapping[region.id_provinsi][region.id] = region.nama;
+
+        mapping[region.id_provinsi][region.id] = region.tipe + ' ' + region.nama;
     });
 
-    console.log(mapping)
+    return mapping;
+}
+
+export function mappingKecamatan(): Record<number, Record<number, Record<number, string>>> {
+    const data = readCSV<{ id: number; id_provinsi: number; id_kabupaten: number; nama: string }>('kecamatan.csv');
+    const mapping: Record<number, Record<number, Record<number, string>>> = {};
+
+    data.forEach((region) => {
+        if (!mapping[region.id_provinsi]) {
+            mapping[region.id_provinsi] = {};
+        }
+
+        if (!mapping[region.id_provinsi][region.id_kabupaten]) {
+            mapping[region.id_provinsi][region.id_kabupaten] = {};
+        }
+
+        mapping[region.id_provinsi][region.id_kabupaten][region.id] = 'Kecamatan ' + region.nama;
+    });
+
     return mapping;
 }

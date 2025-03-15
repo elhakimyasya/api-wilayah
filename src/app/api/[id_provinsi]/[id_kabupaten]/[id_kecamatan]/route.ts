@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Kabupaten } from '@/tipe/Wilayah';
-import { mappingProvinsi, readCSV } from '@/utils/reader';
+import { mappingKabupaten, mappingProvinsi, mappingKecamatan, readCSV } from '@/utils/reader';
+import { Kelurahan } from '@/tipe/Wilayah';
 
-export async function GET(req: NextRequest, { params }: { params: { id_provinsi: string, id_kabupaten: string, id_kecamatan: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { id_provinsi: number, id_kabupaten: number, id_kecamatan: number } }) {
     const { id_provinsi, id_kabupaten, id_kecamatan } = params;
 
     if (!id_provinsi) {
@@ -29,31 +29,39 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
         });
     }
 
-    const kecamatan = readCSV<Kabupaten>('kecamatan.csv');
-    const kabupatenFilter = kecamatan.filter((kecamatan) =>
-        Number(kecamatan.id_provinsi) === Number(id_provinsi) && Number(kecamatan.id_kabupaten) === Number(id_kabupaten) && Number(kecamatan.id) === Number(id_kecamatan)
+    const datas = readCSV<Kelurahan>('kelurahan.csv');
+    const filter = datas.filter((data) =>
+        Number(data.id_provinsi) === Number(id_provinsi) && Number(data.id_kabupaten) === Number(id_kabupaten) && Number(data.id_kecamatan) === Number(id_kecamatan)
     );
 
-    if (kabupatenFilter.length === 0) {
+    if (filter.length === 0) {
         return NextResponse.json({
-            error: 'Kabupaten tidak ditemukan'
-        }, { status: 404 });
+            error: 'Kelurahan tidak ditemukan'
+        }, {
+            status: 404
+        });
     }
 
-    const provinsiMapping = mappingProvinsi();
+    const mapProvinsi = mappingProvinsi();
+    const mapKabupaten = mappingKabupaten();
+    const mapKecamatan = mappingKecamatan();
 
-    const result = kabupatenFilter.map((kecamatan) => {
-        const idProvinsi = String(kecamatan.id_provinsi).padStart(2, '0');
-        const idKabupaten = String(kecamatan.id).padStart(2, '0');
+    const result = filter.map((data) => {
+        const idProvinsi = String(data.id_provinsi).padStart(2, '0');
+        const idKabupaten = String(data.id_kabupaten).padStart(2, '0');
+        const idKecamatan = String(data.id_kecamatan).padStart(3, '0');
+        const idKelurahan = String(data.id).padStart(3, '0');
 
         return {
-            id: kecamatan.id,
-            id_provinsi: kecamatan.id_provinsi,
-            kode: Number(`${idProvinsi}${idKabupaten}`),
-            tipe: kecamatan.tipe,
-            nama: kecamatan.nama,
-            nama_lengkap: `${kecamatan.tipe} ${kecamatan.nama}`,
-            provinsi: kecamatan.id_provinsi !== null ? provinsiMapping[kecamatan.id_provinsi] || 'Tidak Diketahui' : 'Tidak Diketahui',
+            id: data.id,
+            id_provinsi: data.id_provinsi,
+            id_kabupaten: data.id_kabupaten,
+            id_kecamatan: data.id_kecamatan,
+            kode: Number(`${idProvinsi}${idKabupaten}${idKecamatan}${idKelurahan}`),
+            nama: data.nama,
+            kecamatan: data.id_provinsi !== null && data.id_kabupaten !== null && data.id_kecamatan !== null ? (mapKecamatan[Number(data.id_provinsi)]?.[Number(data.id_kabupaten)]?.[Number(data.id_kecamatan)] || 'Tidak Diketahui') : 'Tidak Diketahui',
+            kabupaten: data.id_provinsi !== null && data.id_kabupaten !== null ? (mapKabupaten[Number(data.id_provinsi)]?.[Number(data.id_kabupaten)] || 'Tidak Diketahui') : 'Tidak Diketahui',
+            provinsi: data.id_provinsi !== null ? mapProvinsi[Number(data.id_provinsi)] || 'Tidak Diketahui' : 'Tidak Diketahui',
         };
     });
 
