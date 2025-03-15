@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createFullMapping } from '@/utils/reader';
+import { mappingWilayah } from '@/utils/reader';
 
 export async function GET(req: NextRequest, { params }: { params: { id_provinsi: string } }) {
     const { id_provinsi } = params;
@@ -12,7 +12,7 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
         });
     }
 
-    const fullMapping = createFullMapping();
+    const fullMapping = mappingWilayah();
     const filter = fullMapping.kabupaten[Number(id_provinsi)];
 
     if (!filter || Object.keys(filter).length === 0) {

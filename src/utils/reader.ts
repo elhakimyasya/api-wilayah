@@ -34,44 +34,64 @@ interface FullMapping {
     provinsi: Record<number, string>;
     kabupaten: Record<number, Record<number, string>>;
     kecamatan: Record<number, Record<number, Record<number, string>>>;
+    kelurahan: Record<number, Record<number, Record<number, Record<number, string>>>>;
 }
 
-export function createFullMapping(): FullMapping {
-    const provinsiData = readCSV<{ id: number; nama: string }>('provinsi.csv');
-    const kabupatenData = readCSV<{ id: number; id_provinsi: number; nama: string; tipe: string }>('kabupaten.csv');
-    const kecamatanData = readCSV<{ id: number; id_provinsi: number; id_kabupaten: number; nama: string }>('kecamatan.csv');
+export function mappingWilayah(): FullMapping {
+    const dataProvinsi = readCSV<{ id: number; nama: string }>('provinsi.csv');
+    const dataKabupaten = readCSV<{ id: number; id_provinsi: number; nama: string; tipe: string }>('kabupaten.csv');
+    const dataKecamatan = readCSV<{ id: number; id_provinsi: number; id_kabupaten: number; nama: string }>('kecamatan.csv');
+    const dataKelurahan = readCSV<{ id: number; id_provinsi: number; id_kabupaten: number; id_kecamatan: number; nama: string }>('kelurahan.csv');
 
-    const provinsiMapping: Record<number, string> = {};
-    const kabupatenMapping: Record<number, Record<number, string>> = {};
-    const kecamatanMapping: Record<number, Record<number, Record<number, string>>> = {};
+    const mappingProvinsi: Record<number, string> = {};
+    const mappingKabupaten: Record<number, Record<number, string>> = {};
+    const mappingKecamatan: Record<number, Record<number, Record<number, string>>> = {};
+    const mappingKelurahan: Record<number, Record<number, Record<number, Record<number, string>>>> = {};
 
-    provinsiData.forEach((region) => {
-        provinsiMapping[region.id] = 'Provinsi ' + region.nama;
+    dataProvinsi.forEach((region) => {
+        mappingProvinsi[region.id] = 'Provinsi ' + region.nama;
     });
 
-    kabupatenData.forEach((region) => {
-        if (!kabupatenMapping[region.id_provinsi]) {
-            kabupatenMapping[region.id_provinsi] = {};
+    dataKabupaten.forEach((region) => {
+        if (!mappingKabupaten[region.id_provinsi]) {
+            mappingKabupaten[region.id_provinsi] = {};
         }
 
-        kabupatenMapping[region.id_provinsi][region.id] = region.tipe + ' ' + region.nama;
+        mappingKabupaten[region.id_provinsi][region.id] = region.tipe + ' ' + region.nama;
     });
 
-    kecamatanData.forEach((region) => {
-        if (!kecamatanMapping[region.id_provinsi]) {
-            kecamatanMapping[region.id_provinsi] = {};
+    dataKecamatan.forEach((region) => {
+        if (!mappingKecamatan[region.id_provinsi]) {
+            mappingKecamatan[region.id_provinsi] = {};
         }
 
-        if (!kecamatanMapping[region.id_provinsi][region.id_kabupaten]) {
-            kecamatanMapping[region.id_provinsi][region.id_kabupaten] = {};
+        if (!mappingKecamatan[region.id_provinsi][region.id_kabupaten]) {
+            mappingKecamatan[region.id_provinsi][region.id_kabupaten] = {};
         }
 
-        kecamatanMapping[region.id_provinsi][region.id_kabupaten][region.id] = 'Kecamatan ' + region.nama;
+        mappingKecamatan[region.id_provinsi][region.id_kabupaten][region.id] = 'Kecamatan ' + region.nama;
+    });
+
+    dataKelurahan.forEach((region) => {
+        if (!mappingKelurahan[region.id_provinsi]) {
+            mappingKelurahan[region.id_provinsi] = {};
+        }
+
+        if (!mappingKelurahan[region.id_provinsi][region.id_kabupaten]) {
+            mappingKelurahan[region.id_provinsi][region.id_kabupaten] = {};
+        }
+
+        if (!mappingKelurahan[region.id_provinsi][region.id_kabupaten][region.id_kecamatan]) {
+            mappingKelurahan[region.id_provinsi][region.id_kabupaten][region.id_kecamatan] = {};
+        }
+
+        mappingKelurahan[region.id_provinsi][region.id_kabupaten][region.id_kecamatan][region.id] = 'Kelurahan ' + region.nama;
     });
 
     return {
-        provinsi: provinsiMapping,
-        kabupaten: kabupatenMapping,
-        kecamatan: kecamatanMapping
+        provinsi: mappingProvinsi,
+        kabupaten: mappingKabupaten,
+        kecamatan: mappingKecamatan,
+        kelurahan: mappingKelurahan,
     };
 }

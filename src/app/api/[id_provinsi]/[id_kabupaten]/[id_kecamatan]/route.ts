@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createFullMapping, readCSV } from '@/utils/reader';
+import { mappingWilayah, readCSV } from '@/utils/reader';
 import { Kelurahan } from '@/tipe/Wilayah';
 
 export async function GET(req: NextRequest, { params }: { params: { id_provinsi: number, id_kabupaten: number, id_kecamatan: number } }) {
@@ -42,7 +42,7 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
         });
     }
 
-    const fullMapping = createFullMapping();
+    const fullMapping = mappingWilayah();
 
     const result = filter.map((data) => {
         const idProvinsi = String(data.id_provinsi).padStart(2, '0');

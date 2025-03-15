@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createFullMapping } from '@/utils/reader';
+import { mappingWilayah } from '@/utils/reader';
 
 export async function GET(req: NextRequest, { params }: { params: { id_provinsi: number, id_kabupaten: number } }) {
     const { id_provinsi, id_kabupaten } = params;
@@ -20,7 +20,7 @@ export async function GET(req: NextRequest, { params }: { params: { id_provinsi:
         });
     }
 
-    const fullMapping = createFullMapping();
+    const fullMapping = mappingWilayah();
     const kecamatanMapping = fullMapping.kecamatan[id_provinsi]?.[id_kabupaten];
 
     if (!kecamatanMapping || Object.keys(kecamatanMapping).length === 0) {
