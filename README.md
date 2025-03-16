@@ -40,7 +40,7 @@ Berikut adalah endpoint API yang tersedia dan cara penggunaannya:
 
 ## 📖 Cara Penggunaan
 
-Gunakan permintaan HTTP **GET** untuk mengambil data wilayah berdasarkan **nama atau ID**.
+Gunakan permintaan HTTP **GET** untuk mengambil data wilayah berdasarkan **ID**.
 
 **Contoh: Mencari Provinsi "Jawa Barat"**
 ```sh
