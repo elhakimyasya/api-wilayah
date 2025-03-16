@@ -1,79 +1,53 @@
 # 🇮🇩 API Wilayah
 
-Proyek API Wilayah menyediakan API Statis buat ngambil data wilayah di Indonesia, termasuk Provinsi, Kabupaten/Kota, Kecamatan, dan Kelurahan/Desa.
+Proyek **API Wilayah** menyediakan API statis untuk mengambil data wilayah di Indonesia, termasuk **Provinsi, Kabupaten/Kota, Kecamatan, dan Kelurahan/Desa**.
+
+---
 
 ## 🚀 Akses API
 
-Berikut ini adalah endpoint API yang tersedia dan cara ngaksesnya:
+Berikut adalah endpoint API yang tersedia dan cara penggunaannya:
 
-### 1. Tingkat & Pencarian Provinsi
+### 1️⃣ Pencarian & Akses Data Provinsi
 
-#### Tingkat
+- **Tingkat**: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>`  
+  **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31`](https://elc-api-wilayah.vercel.app/api/31)
+- **Pencarian**: `https://elc-api-wilayah.vercel.app/api/31?q=<NAMA_KABUPATEN_KOTA>`  
+  **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31?q=Jakarta%20Selatan`](https://elc-api-wilayah.vercel.app/api/31?q=Jakarta%20Selatan)
 
-Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>`.
+### 2️⃣ Pencarian & Akses Data Kabupaten/Kota
 
-Contoh: `https://elc-api-wilayah.vercel.app/api/31`.
+- **Tingkat**: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>`  
+  **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31/74`](https://elc-api-wilayah.vercel.app/api/31/74)
+- **Pencarian**: `https://elc-api-wilayah.vercel.app/api/31/74?q=<NAMA_KECAMATAN>`  
+  **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31/74?q=Tebet`](https://elc-api-wilayah.vercel.app/api/31/74?q=Tebet)
 
-#### Pencarian
+### 3️⃣ Pencarian & Akses Data Kecamatan
 
-Endpoint: `https://elc-api-wilayah.vercel.app/api/31?q=<NAMA_KABUPATEN_KOTA>`.
+- **Tingkat**: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>/<ID_KECAMATAN>`  
+  **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31/74/01`](https://elc-api-wilayah.vercel.app/api/31/74/01)
+- **Pencarian**: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=<NAMA_KELURAHAN>`  
+  **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan`](https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan)
 
-Contoh: `https://elc-api-wilayah.vercel.app/api/31?q=Jakarta%20Selatan`.
+### 4️⃣ Pencarian & Akses Data Kelurahan
 
-### 2. Tingkat & Pencarian Kabupaten/Kota
+- **Tingkat**: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>/<ID_KECAMATAN>`  
+  **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31/74/01`](https://elc-api-wilayah.vercel.app/api/31/74/01)
+- **Pencarian**: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=<NAMA_KELURAHAN>`  
+  **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan`](https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan)
 
-#### Tingkat
-
-Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>`.
-
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74`.
-
-#### Pencarian
-
-Endpoint: `https://elc-api-wilayah.vercel.app/api/31/74?q=<NAMA_KECAMATAN>`.
-
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74?q=Tebet`.
-
-### 3. Tingkat & Pencarian Kecamatan
-
-#### Tingkat
-
-Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>/<ID_KECAMATAN>`.
-
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01`.
-
-#### Pencarian
-
-Endpoint: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=<NAMA_KELURAHAN>`.
-
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan`.
-
-### 4. Tingkat & Pencarian Kelurahan
-
-#### Tingkat
-
-Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>/<ID_KECAMATAN>`.
-
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01`.
-
-#### Pencarian
-
-Endpoint: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=<NAMA_KELURAHAN>`.
-
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan`.
+---
 
 ## 📖 Cara Penggunaan
 
-Buat pake API ini, kalian bisa kirim permintaan HTTP GET ke endpoint yang tersedia dengan parameter pencarian yang sesuai. Contohnya, buat nyari provinsi dengan nama "Jawa Barat":
+Gunakan permintaan HTTP **GET** untuk mengambil data wilayah berdasarkan **nama atau ID**.
 
+**Contoh: Mencari Provinsi "Jawa Barat"**
 ```sh
 curl -X GET "https://elc-api-wilayah.vercel.app/api?q=Jawa%20Barat"
 ```
 
-## 📨 Contoh Respon
-
-Berikut ini contoh respon buat pencarian provinsi:
-
+**Contoh Respon:**
 ```json
 [
     {
@@ -87,11 +61,13 @@ Berikut ini contoh respon buat pencarian provinsi:
 ]
 ```
 
-## 🛠️ Instalasi
+---
 
-Buat jalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
+## 🛠️ Instalasi Lokal
 
-1. Clone repo ini:
+Untuk menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
+
+1. Clone repository:
     ```sh
     git clone https://github.com/elhakimyasya/api-wilayah.git
     ```
@@ -108,16 +84,53 @@ Buat jalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
     npm start
     ```
 
+---
+
+## 📂 Akses Data Wilayah (CSV)
+
+Dataset wilayah tersedia dalam format **CSV**, yang dapat diakses di folder `/data`:
+
+- **Provinsi**: [`provinsi.csv`](data/provinsi.csv)
+- **Kabupaten/Kota**: [`kabupaten.csv`](data/kabupaten.csv)
+- **Kecamatan**: [`kecamatan.csv`](data/kecamatan.csv)
+- **Kelurahan**: [`kelurahan.csv`](data/kelurahan.csv)
+
+Silakan edit atau gunakan dataset ini sesuai kebutuhan.
+
+---
+
 ## 🤝 Kontribusi
 
-Kalau kalian mau kontribusi ke proyek ini, silakan fork repo ini dan buat pull request dengan perubahan yang kalian usulkan.
+Kontribusi sangat disambut! Jika ingin berkontribusi, ikuti langkah-langkah berikut:
+
+1. **Fork repo ini** ke akun GitHub kalian.
+2. **Buat branch baru** untuk perubahan:
+   ```sh
+   git checkout -b fitur-baru
+   ```
+3. **Lakukan perubahan dan commit**:
+   ```sh
+   git commit -m "Menambahkan fitur baru"
+   ```
+4. **Push ke repository kalian**:
+   ```sh
+   git push origin fitur-baru
+   ```
+5. **Buat Pull Request (PR)** ke repository utama.
+
+Harap pastikan perubahan yang diajukan sudah diuji dengan baik sebelum membuat PR. ✨
+
+---
 
 ## 💖 Donasi
 
-Kalau kalian mau dukung proyek ini, kalian bisa donasi lewat link berikut:
+Jika proyek ini bermanfaat, dukung dengan berdonasi:
 
-[Donasi di Saweria](https://saweria.co/yasyaelhakim)
+[Donasi via Saweria](https://saweria.co/yasyaelhakim)
+
+---
 
 ## 📜 Lisensi
 
-Proyek ini dilisensikan di bawah lisensi MIT. Lihat file `LICENSE` untuk informasi lebih lanjut.
+Proyek ini dilisensikan di bawah **MIT License**. Lihat file `LICENSE` untuk informasi lebih lanjut.
+
