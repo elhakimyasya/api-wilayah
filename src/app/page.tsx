@@ -8,7 +8,7 @@ export default function Home() {
 
         <h2 className="font-bold text-2xl sm:text-4xl">API Wilayah</h2>
         <ol className="list-outside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="tracking-[-.01em] mb-2 last:mb-0">Pencarian Wilayah Berdasarkan Nama - Cari Provinsi, Kabupaten/Kota, Kecamatan, dan Kelurahan/Desa berdasarkan ID.</li>
+          <li className="tracking-[-.01em] mb-2 last:mb-0">Pencarian Wilayah - Cari Provinsi, Kabupaten/Kota, Kecamatan, dan Kelurahan/Desa berdasarkan ID.</li>
           <li className="tracking-[-.01em] mb-2 last:mb-0">Hierarki Wilayah yang Terstruktur - Data wilayah disusun berdasarkan Provinsi → Kabupaten/Kota → Kecamatan → Kelurahan/Desa.</li>
           <li className="tracking-[-.01em] mb-2 last:mb-0">Endpoint Sederhana & Mudah Digunakan - Hanya perlu ID wilayah untuk mendapatkan data.</li>
           <li className="tracking-[-.01em] mb-2 last:mb-0">Akses Publik & Gratis - Tidak perlu autentikasi atau API key, bisa digunakan secara bebas.</li>
@@ -20,15 +20,15 @@ export default function Home() {
             Lihat API
           </a>
 
-          <a className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]" href="https://elcreative.org/" target="_blank" >
-            EL Creative
+          <a className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]" href="https://github.com/elhakimyasya/api-wilayah" target="_blank" >
+            Lihat di GitHub →
           </a>
         </div>
       </main>
 
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a className="flex items-center gap-2 hover:underline hover:underline-offset-4" href="https://github.com/elhakimyasya/api-wilayah" target="_blank" rel="noopener noreferrer">
-          Lihat di GitHub →
+        <a className="flex items-center gap-2 hover:underline hover:underline-offset-4" href="https://elcreative.org/" target="_blank" rel="noopener noreferrer">
+          EL Creative
         </a>
       </footer>
     </div >
