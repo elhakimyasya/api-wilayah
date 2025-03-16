@@ -81,7 +81,3 @@ Kalau kalian mau dukung proyek ini, kalian bisa donasi lewat link berikut:
 ## 📜 Lisensi
 
 Proyek ini dilisensikan di bawah lisensi MIT. Lihat file `LICENSE` untuk informasi lebih lanjut.
-
-## 📧 Kontak
-
-Kalau kalian punya pertanyaan atau masukan, silakan buka issue atau hubungi saya lewat email di elhakimyasya@example.com.
