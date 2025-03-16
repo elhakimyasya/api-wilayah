@@ -6,7 +6,7 @@ export default function Home() {
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start max-w-2xl">
         <Image src="/logo.png" alt="EL Creative" width={100} height={100} priority />
 
-        <h2 className="font-bold text-2xl sm:text-4xl">API Wilayah</h2>
+        <h2 className="font-bold text-2xl sm:text-4xl">🇮🇩 API Wilayah Indonesia</h2>
         <ol className="list-outside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="tracking-[-.01em] mb-2 last:mb-0">Pencarian Wilayah - Cari Provinsi, Kabupaten/Kota, Kecamatan, dan Kelurahan/Desa berdasarkan ID.</li>
           <li className="tracking-[-.01em] mb-2 last:mb-0">Hierarki Wilayah yang Terstruktur - Data wilayah disusun berdasarkan Provinsi → Kabupaten/Kota → Kecamatan → Kelurahan/Desa.</li>
@@ -20,7 +20,7 @@ export default function Home() {
             Lihat API
           </a>
 
-          <a className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]" href="https://github.com/elhakimyasya/api-wilayah" target="_blank" >
+          <a className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto" href="https://github.com/elhakimyasya/api-wilayah" target="_blank" >
             Lihat di GitHub →
           </a>
         </div>
