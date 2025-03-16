@@ -4,7 +4,7 @@ import { mappingWilayah } from '@/utils/reader';
 export async function GET(req: NextRequest) {
     try {
         const fullMapping = mappingWilayah();
-        const search = req.nextUrl.searchParams.get('search');
+        const search = req.nextUrl.searchParams.get('q');
 
         if (!fullMapping.provinsi || Object.keys(fullMapping.provinsi).length === 0) {
             return NextResponse.json({ message: 'Data provinsi tidak ditemukan!' }, { status: 404 });

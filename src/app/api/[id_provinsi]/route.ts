@@ -33,7 +33,7 @@ export async function GET(req: NextRequest, context: { params: any }) {
             };
         });
 
-        const search = req.nextUrl.searchParams.get('search');
+        const search = req.nextUrl.searchParams.get('q');
         if (search) {
             result = result.filter(kabupaten => kabupaten.nama.toLowerCase().includes(search.toLowerCase()));
         }
