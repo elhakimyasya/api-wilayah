@@ -8,26 +8,26 @@ Berikut ini adalah endpoint API yang tersedia dan cara ngaksesnya:
 
 ### 🏞️ 1. Pencarian Provinsi
 
-Endpoint: `GET /api?search=<NAMA_PROVINSI>`
+Endpoint: `GET https://api-wilayah-neon.vercel.app/api?search=<NAMA_PROVINSI>`
 
 ### 🏙️ 2. Pencarian Kabupaten
 
-Endpoint: `GET /api/<ID_PROVINSI>?search=<NAMA_KABUPATEN>`
+Endpoint: `GET https://api-wilayah-neon.vercel.app/api/<ID_PROVINSI>?search=<NAMA_KABUPATEN>`
 
 ### 🌆 3. Pencarian Kecamatan
 
-Endpoint: `GET /api/<ID_PROVINSI>/<ID_KABUPATEN>?search=<NAMA_KECAMATAN>`
+Endpoint: `GET https://api-wilayah-neon.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN>?search=<NAMA_KECAMATAN>`
 
 ### 🏡 4. Pencarian Kelurahan
 
-Endpoint: `GET /api/<ID_PROVINSI>/<ID_KABUPATEN>/<ID_KECAMATAN>?search=<NAMA_KELURAHAN>`
+Endpoint: `GET https://api-wilayah-neon.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN>/<ID_KECAMATAN>?search=<NAMA_KELURAHAN>`
 
 ## 📖 Cara Penggunaan
 
 Buat pake API ini, kalian bisa kirim permintaan HTTP GET ke endpoint yang tersedia dengan parameter pencarian yang sesuai. Contohnya, buat nyari provinsi dengan nama "Jawa Barat":
 
 ```sh
-curl -X GET "https://api.example.com/api?search=Jawa%20Barat"
+curl -X GET "https://api-wilayah-neon.vercel.app/api?search=Jawa%20Barat"
 ```
 
 ## 📨 Contoh Respon
