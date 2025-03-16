@@ -9,28 +9,25 @@ Proyek **API Wilayah** menyediakan API statis untuk mengambil data wilayah di In
 Berikut adalah endpoint API yang tersedia dan cara penggunaannya:
 
 ### 1️⃣ Pencarian & Akses Data Provinsi
+- **Tingkat**: [`https://elc-api-wilayah.vercel.app/api`](https://elc-api-wilayah.vercel.app/api)
+- **Pencarian**: `https://elc-api-wilayah.vercel.app/api?q=<NAMA_PROVINSI>`  
+  **Contoh**: [`https://elc-api-wilayah.vercel.app/api?q=DKI%20Jakarta`](https://elc-api-wilayah.vercel.app/api?q=DKI%20Jakarta)
 
+### 2️⃣ Pencarian & Akses Data Kabupaten/Kota
 - **Tingkat**: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>`  
   **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31`](https://elc-api-wilayah.vercel.app/api/31)
 - **Pencarian**: `https://elc-api-wilayah.vercel.app/api/31?q=<NAMA_KABUPATEN_KOTA>`  
   **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31?q=Jakarta%20Selatan`](https://elc-api-wilayah.vercel.app/api/31?q=Jakarta%20Selatan)
 
-### 2️⃣ Pencarian & Akses Data Kabupaten/Kota
 
+### 3️⃣ Pencarian & Akses Data Kecamatan
 - **Tingkat**: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>`  
   **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31/74`](https://elc-api-wilayah.vercel.app/api/31/74)
 - **Pencarian**: `https://elc-api-wilayah.vercel.app/api/31/74?q=<NAMA_KECAMATAN>`  
   **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31/74?q=Tebet`](https://elc-api-wilayah.vercel.app/api/31/74?q=Tebet)
 
-### 3️⃣ Pencarian & Akses Data Kecamatan
-
-- **Tingkat**: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>/<ID_KECAMATAN>`  
-  **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31/74/01`](https://elc-api-wilayah.vercel.app/api/31/74/01)
-- **Pencarian**: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=<NAMA_KELURAHAN>`  
-  **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan`](https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan)
 
 ### 4️⃣ Pencarian & Akses Data Kelurahan
-
 - **Tingkat**: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>/<ID_KECAMATAN>`  
   **Contoh**: [`https://elc-api-wilayah.vercel.app/api/31/74/01`](https://elc-api-wilayah.vercel.app/api/31/74/01)
 - **Pencarian**: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=<NAMA_KELURAHAN>`  
