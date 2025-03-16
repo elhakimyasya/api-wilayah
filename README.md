@@ -124,9 +124,12 @@ Harap pastikan perubahan yang diajukan sudah diuji dengan baik sebelum membuat P
 
 ## 💖 Donasi
 
-Jika proyek ini bermanfaat, dukung dengan berdonasi:
+Jika proyek ini bermanfaat, dukung dengan berdonasi melalui:
 
-[Donasi via Saweria](https://saweria.co/yasyaelhakim)
+- [Saweria](https://saweria.co/yasyaelhakim)
+- [Ko-Fi](https://ko-fi.com/elhakimyasya)
+- [PayPal](https://www.paypal.me/yasyaelhakim/5)
+- [Buy Me a Coffee](https://www.buymeacoffee.com/yasyaelhakim)
 
 ---
 
