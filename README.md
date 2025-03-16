@@ -10,49 +10,57 @@ Berikut ini adalah endpoint API yang tersedia dan cara ngaksesnya:
 
 #### Tingkat
 
-Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>`
-Contoh: `https://elc-api-wilayah.vercel.app/api/31`
+Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>`.
+
+Contoh: `https://elc-api-wilayah.vercel.app/api/31`.
 
 #### Pencarian
 
-Endpoint: `https://elc-api-wilayah.vercel.app/api/31?q=<NAMA_KABUPATEN_KOTA>`
-Contoh: `https://elc-api-wilayah.vercel.app/api/31?q=Jakarta%20Selatan`
+Endpoint: `https://elc-api-wilayah.vercel.app/api/31?q=<NAMA_KABUPATEN_KOTA>`.
+
+Contoh: `https://elc-api-wilayah.vercel.app/api/31?q=Jakarta%20Selatan`.
 
 ### 2. Tingkat & Pencarian Kabupaten/Kota
 
 #### Tingkat
 
-Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>`
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74`
+Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>`.
+
+Contoh: `https://elc-api-wilayah.vercel.app/api/31/74`.
 
 #### Pencarian
 
-Endpoint: `https://elc-api-wilayah.vercel.app/api/31/74?q=<NAMA_KECAMATAN>`
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74?q=Tebet`
+Endpoint: `https://elc-api-wilayah.vercel.app/api/31/74?q=<NAMA_KECAMATAN>`.
+
+Contoh: `https://elc-api-wilayah.vercel.app/api/31/74?q=Tebet`.
 
 ### 3. Tingkat & Pencarian Kecamatan
 
 #### Tingkat
 
-Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>/<ID_KECAMATAN>`
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01`
+Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>/<ID_KECAMATAN>`.
+
+Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01`.
 
 #### Pencarian
 
-Endpoint: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=<NAMA_KELURAHAN>`
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan`
+Endpoint: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=<NAMA_KELURAHAN>`.
+
+Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan`.
 
 ### 4. Tingkat & Pencarian Kelurahan
 
 #### Tingkat
 
-Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>/<ID_KECAMATAN>`
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01`
+Endpoint: `https://elc-api-wilayah.vercel.app/api/<ID_PROVINSI>/<ID_KABUPATEN_KOTA>/<ID_KECAMATAN>`.
+
+Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01`.
 
 #### Pencarian
 
-Endpoint: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=<NAMA_KELURAHAN>`
-Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan`
+Endpoint: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=<NAMA_KELURAHAN>`.
+
+Contoh: `https://elc-api-wilayah.vercel.app/api/31/74/01?q=Manggarai%20Selatan`.
 
 ## 📖 Cara Penggunaan
 
