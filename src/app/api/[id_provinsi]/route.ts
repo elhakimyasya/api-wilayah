@@ -4,10 +4,10 @@ import { mappingWilayah } from '@/utils/reader';
 
 export async function GET(req: NextRequest, context: { params: any }) {
     try {
-        const { id_provinsi } = await context.params as { id_provinsi: string };
+        const { id_provinsi, tipe } = await context.params as { id_provinsi: string, tipe: string };
 
         if (!id_provinsi) {
-            return NextResponse.json({ message: 'ID Provinsi Tidak Valid!' }, { status: 400 });
+            return NextResponse.json({ message: 'ID Tidak Valid!' }, { status: 400 });
         }
 
         const fullMapping = mappingWilayah();
@@ -21,17 +21,21 @@ export async function GET(req: NextRequest, context: { params: any }) {
             const idProvinsi = String(id_provinsi).padStart(2, '0');
             const id = String(idKabupaten).padStart(2, '0');
 
-            const jumlah_kecamatan = fullMapping.kecamatan?.[Number(id_provinsi)]?.[Number(idKabupaten)] ? Object.keys(fullMapping.kecamatan[Number(id_provinsi)][Number(idKabupaten)]).length : 0;
-            const jumlah_kelurahan = fullMapping.kelurahan?.[Number(id_provinsi)]?.[Number(idKabupaten)] ? Object.values(fullMapping.kelurahan[Number(id_provinsi)][Number(idKabupaten)]).reduce((total, kecamatan) => total + Object.keys(kecamatan).length, 0) : 0;
-
             return {
                 id_provinsi: idProvinsi,
                 id_kabupaten: id,
                 kode: `${idProvinsi}${id}`,
                 nama: namaKabupaten,
-                provinsi: fullMapping.provinsi?.[Number(id_provinsi)] || 'Tidak Diketahui',
-                jumlah_kecamatan,
-                jumlah_kelurahan
+                tipe: tipe || 'Kabupaten',
+                wilayah: {
+                    provinsi: fullMapping.provinsi?.[Number(id_provinsi)] || 'Tidak Diketahui',
+                },
+                jumlah: {
+                    wilayah: {
+                        kecamatan: fullMapping.kecamatan?.[Number(id_provinsi)]?.[Number(idKabupaten)] ? Object.keys(fullMapping.kecamatan[Number(id_provinsi)][Number(idKabupaten)]).length : 0,
+                        kelurahan: fullMapping.kelurahan?.[Number(id_provinsi)]?.[Number(idKabupaten)] ? Object.values(fullMapping.kelurahan[Number(id_provinsi)][Number(idKabupaten)]).reduce((total, kecamatan) => total + Object.keys(kecamatan).length, 0) : 0
+                    }
+                }
             };
         });
 

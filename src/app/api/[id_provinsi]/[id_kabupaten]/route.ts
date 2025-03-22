@@ -22,17 +22,21 @@ export async function GET(req: NextRequest, context: { params: any }) {
             const idKabupaten = String(id_kabupaten).padStart(2, '0');
             const idKec = String(idKecamatan).padStart(2, '0');
 
-            const jumlah_kelurahan = Object.keys(fullMapping.kelurahan?.[Number(id_provinsi)]?.[Number(id_kabupaten)]?.[Number(idKecamatan)] || {}).length;
-
             return {
                 id_provinsi: idProvinsi,
                 id_kabupaten: idKabupaten,
                 id_kecamatan: idKec,
                 kode: `${idProvinsi}${idKabupaten}${idKec}`,
                 nama: namaKecamatan,
-                kabupaten: fullMapping.kabupaten?.[Number(id_provinsi)]?.[Number(id_kabupaten)] || 'Tidak Diketahui',
-                provinsi: fullMapping.provinsi?.[Number(id_provinsi)] || 'Tidak Diketahui',
-                jumlah_kelurahan,
+                wilayah: {
+                    kabupaten: fullMapping.kabupaten?.[Number(id_provinsi)]?.[Number(id_kabupaten)] || 'Tidak Diketahui',
+                    provinsi: fullMapping.provinsi?.[Number(id_provinsi)] || 'Tidak Diketahui',
+                },
+                jumlah: {
+                    wilayah: {
+                        kelurahan: Object.keys(fullMapping.kelurahan?.[Number(id_provinsi)]?.[Number(id_kabupaten)]?.[Number(idKecamatan)] || {}).length,
+                    }
+                }
             };
         });
 

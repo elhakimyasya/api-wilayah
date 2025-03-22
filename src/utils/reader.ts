@@ -4,7 +4,7 @@ import papaparse from 'papaparse';
 
 type CSVRow = Record<string, string | number | null>;
 
-export function readCSV<T extends CSVRow>(fileName: string): T[] {
+export function readCSV(fileName: string): CSVRow[] {
     const filePath = path.join(process.cwd(), 'data', fileName);
     const fileContent = fs.readFileSync(filePath, 'utf8');
 
@@ -18,56 +18,63 @@ export function readCSV<T extends CSVRow>(fileName: string): T[] {
 
         Object.entries(row).forEach(([key, value]) => {
             const formattedKey = key.trim().toLowerCase();
+            const trimmedValue = value.trim();
 
-            if (formattedKey.includes('id')) {
-                objects[formattedKey] = Number(value.trim()) || null;
+            // Jika nilai berupa angka, konversi ke number
+            if (!isNaN(Number(trimmedValue))) {
+                objects[formattedKey] = Number(trimmedValue);
             } else {
-                objects[formattedKey] = value.trim();
+                objects[formattedKey] = trimmedValue || null;
             }
         });
 
-        return objects as T;
+        return objects;
     });
 }
 
-interface FullMapping {
-    provinsi: Record<number, string>;
-    kabupaten: Record<number, Record<number, string>>;
-    kecamatan: Record<number, Record<number, Record<number, string>>>;
-    kelurahan: Record<number, Record<number, Record<number, Record<number, string>>>>;
+interface NestedMapping {
+    [key: number]: string | NestedMapping;
 }
 
-export function mappingWilayah(): FullMapping {
-    const dataProvinsi = readCSV<{ id: number; nama: string }>('provinsi.csv');
-    const dataKabupaten = readCSV<{ id: number; id_provinsi: number; nama: string; tipe: string }>('kabupaten.csv');
-    const dataKecamatan = readCSV<{ id: number; id_provinsi: number; id_kabupaten: number; nama: string }>('kecamatan.csv');
-    const dataKelurahan = readCSV<{ id: number; id_provinsi: number; id_kabupaten: number; id_kecamatan: number; nama: string }>('kelurahan.csv');
+export function mappingWilayah(): Record<string, NestedMapping> {
+    const csvFiles = [
+        'provinsi.csv',
+        'kabupaten.csv',
+        'kecamatan.csv',
+        'kelurahan.csv'
+    ];
+    const mappings: Record<string, NestedMapping> = {};
 
-    const mappingProvinsi: Record<number, string> = {};
-    const mappingKabupaten: Record<number, Record<number, string>> = {};
-    const mappingKecamatan: Record<number, Record<number, Record<number, string>>> = {};
-    const mappingKelurahan: Record<number, Record<number, Record<number, Record<number, string>>>> = {};
+    csvFiles.forEach((file) => {
+        const data = readCSV(file);
+        const keyName = path.basename(file, '.csv');
 
-    dataProvinsi.forEach(({ id, nama }) => {
-        mappingProvinsi[id] = nama;
+        mappings[keyName] = {};
+
+        data.forEach((row) => {
+            const id = row['id'] as number;
+            const name = row['nama'] as string;
+            const parentKeys = Object.keys(row).filter((k) => k.startsWith('id_') && k !== 'id');
+
+            if (parentKeys.length === 0) {
+                mappings[keyName][id] = name;
+            } else {
+                let currentLevel: NestedMapping = mappings[keyName];
+
+                parentKeys.forEach((parentKey, index) => {
+                    const parentId = row[parentKey] as number;
+                    if (!currentLevel[parentId]) {
+                        currentLevel[parentId] = {};
+                    }
+                    if (index === parentKeys.length - 1) {
+                        (currentLevel[parentId] as NestedMapping)[id] = name;
+                    } else {
+                        currentLevel = currentLevel[parentId] as NestedMapping;
+                    }
+                });
+            }
+        });
     });
 
-    dataKabupaten.forEach(({ id, id_provinsi, nama }) => {
-        (mappingKabupaten[id_provinsi] ??= {})[id] = nama;
-    });
-
-    dataKecamatan.forEach(({ id, id_provinsi, id_kabupaten, nama }) => {
-        ((mappingKecamatan[id_provinsi] ??= {})[id_kabupaten] ??= {})[id] = nama;
-    });
-
-    dataKelurahan.forEach(({ id, id_provinsi, id_kabupaten, id_kecamatan, nama }) => {
-        (((mappingKelurahan[id_provinsi] ??= {})[id_kabupaten] ??= {})[id_kecamatan] ??= {})[id] = nama;
-    });
-
-    return {
-        provinsi: mappingProvinsi,
-        kabupaten: mappingKabupaten,
-        kecamatan: mappingKecamatan,
-        kelurahan: mappingKelurahan,
-    };
+    return mappings;
 }
