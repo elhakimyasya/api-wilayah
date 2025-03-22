@@ -48,44 +48,20 @@ export function mappingWilayah(): FullMapping {
     const mappingKecamatan: Record<number, Record<number, Record<number, string>>> = {};
     const mappingKelurahan: Record<number, Record<number, Record<number, Record<number, string>>>> = {};
 
-    dataProvinsi.forEach((region) => {
-        mappingProvinsi[region.id] = region.nama;
+    dataProvinsi.forEach(({ id, nama }) => {
+        mappingProvinsi[id] = nama;
     });
 
-    dataKabupaten.forEach((region) => {
-        if (!mappingKabupaten[region.id_provinsi]) {
-            mappingKabupaten[region.id_provinsi] = {};
-        }
-
-        mappingKabupaten[region.id_provinsi][region.id] = region.nama;
+    dataKabupaten.forEach(({ id, id_provinsi, nama }) => {
+        (mappingKabupaten[id_provinsi] ??= {})[id] = nama;
     });
 
-    dataKecamatan.forEach((region) => {
-        if (!mappingKecamatan[region.id_provinsi]) {
-            mappingKecamatan[region.id_provinsi] = {};
-        }
-
-        if (!mappingKecamatan[region.id_provinsi][region.id_kabupaten]) {
-            mappingKecamatan[region.id_provinsi][region.id_kabupaten] = {};
-        }
-
-        mappingKecamatan[region.id_provinsi][region.id_kabupaten][region.id] = region.nama;
+    dataKecamatan.forEach(({ id, id_provinsi, id_kabupaten, nama }) => {
+        ((mappingKecamatan[id_provinsi] ??= {})[id_kabupaten] ??= {})[id] = nama;
     });
 
-    dataKelurahan.forEach((region) => {
-        if (!mappingKelurahan[region.id_provinsi]) {
-            mappingKelurahan[region.id_provinsi] = {};
-        }
-
-        if (!mappingKelurahan[region.id_provinsi][region.id_kabupaten]) {
-            mappingKelurahan[region.id_provinsi][region.id_kabupaten] = {};
-        }
-
-        if (!mappingKelurahan[region.id_provinsi][region.id_kabupaten][region.id_kecamatan]) {
-            mappingKelurahan[region.id_provinsi][region.id_kabupaten][region.id_kecamatan] = {};
-        }
-
-        mappingKelurahan[region.id_provinsi][region.id_kabupaten][region.id_kecamatan][region.id] = region.nama;
+    dataKelurahan.forEach(({ id, id_provinsi, id_kabupaten, id_kecamatan, nama }) => {
+        (((mappingKelurahan[id_provinsi] ??= {})[id_kabupaten] ??= {})[id_kecamatan] ??= {})[id] = nama;
     });
 
     return {

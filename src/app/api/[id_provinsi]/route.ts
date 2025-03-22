@@ -22,6 +22,7 @@ export async function GET(req: NextRequest, context: { params: any }) {
             const id = String(idKabupaten).padStart(2, '0');
 
             const jumlah_kecamatan = fullMapping.kecamatan?.[Number(id_provinsi)]?.[Number(idKabupaten)] ? Object.keys(fullMapping.kecamatan[Number(id_provinsi)][Number(idKabupaten)]).length : 0;
+            const jumlah_kelurahan = fullMapping.kelurahan?.[Number(id_provinsi)]?.[Number(idKabupaten)] ? Object.values(fullMapping.kelurahan[Number(id_provinsi)][Number(idKabupaten)]).reduce((total, kecamatan) => total + Object.keys(kecamatan).length, 0) : 0;
 
             return {
                 id_provinsi: idProvinsi,
@@ -30,6 +31,7 @@ export async function GET(req: NextRequest, context: { params: any }) {
                 nama: namaKabupaten,
                 provinsi: fullMapping.provinsi?.[Number(id_provinsi)] || 'Tidak Diketahui',
                 jumlah_kecamatan,
+                jumlah_kelurahan
             };
         });
 

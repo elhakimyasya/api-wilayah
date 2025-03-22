@@ -19,6 +19,8 @@ export async function GET(req: NextRequest) {
         let result = Object.entries(fullMapping.provinsi).map(([id, nama]) => {
             const idProvinsi = String(id).padStart(2, '0');
             const jumlah_kabupaten = fullMapping.kabupaten?.[Number(id)] ? Object.keys(fullMapping.kabupaten[Number(id)]).length : 0;
+            const jumlah_kecamatan = fullMapping.kecamatan?.[Number(id)] ? Object.values(fullMapping.kecamatan[Number(id)]).reduce((total, kab) => total + Object.keys(kab).length, 0) : 0;
+            const jumlah_kelurahan = fullMapping.kelurahan?.[Number(id)] ? Object.values(fullMapping.kelurahan[Number(id)]).reduce((total, kab) => total + Object.values(kab).reduce((subTotal, kec) => subTotal + Object.keys(kec).length, 0), 0) : 0;
 
             const logoPath = path.join(process.cwd(), 'public', 'images', 'provinsi', `${idProvinsi}.png`);
             const logoUrl = fs.existsSync(logoPath) ? `${req.nextUrl.protocol}//${req.nextUrl.host}/images/provinsi/${idProvinsi}.png` : null;
@@ -28,6 +30,8 @@ export async function GET(req: NextRequest) {
                 nama,
                 logo: logoUrl,
                 jumlah_kabupaten,
+                jumlah_kecamatan,
+                jumlah_kelurahan,
             };
         });
 
